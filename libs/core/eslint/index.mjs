@@ -24,6 +24,7 @@ export const baseConfig = tseslint.config(
       ...reactPlugin.configs.recommended.rules,
       ...hooksPlugin.configs.recommended.rules,
       "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
       "prettier/prettier": "error",
     },
     settings: {
@@ -47,41 +48,3 @@ export const nextConfig = tseslint.config(
   }
 );
 
-export const legacyConfig = tseslint.config(
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-
-  // Next.js (using compat utility for now)
-  //...compat.extends("next/core-web-vitals"),
-  {
-    plugins: {
-      "@next/next": nextPlugin,
-    },
-    rules: {
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs["core-web-vitals"].rules,
-    },
-  },
-
-  {
-    files: ["**/*.{ts,tsx}"],
-    plugins: {
-      react: reactPlugin,
-      "react-hooks": hooksPlugin,
-      prettier: prettierPlugin,
-    },
-    rules: {
-      ...reactPlugin.configs.recommended.rules,
-      ...hooksPlugin.configs.recommended.rules,
-      "react/react-in-jsx-scope": "off", // Next.js doesn't need this
-      "prettier/prettier": "error",
-    },
-    settings: {
-      react: { version: "detect" },
-      next: {
-        rootDir: "apps/**/*",
-      },
-    },
-  },
-  prettierConfig // Must be last to override stylistic rules
-);
