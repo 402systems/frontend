@@ -10,7 +10,10 @@ Prerequisites:
 ## Getting Started
 
 1. `pnpm install`
-2. Start an app in dev mode: `` // TODO
+2. Start an app in dev mode: `pnpm dev --filter @402systems/app-games-dobble`
+3. Install a new package: `pnpm install <pkg> --filter @402systems/app-games-dobble`
+4. Install a workspace wide package: `pnpm i -wD <pkg>`. WARN: You should almost never need to do this, unless you are installing a build tool
+5. Run all preflight checks `pnpm checkall`
 
 ## Create New Project
 
@@ -37,6 +40,11 @@ Prerequisites:
 
 - `pnpm format:check`
 - `pnpm format:fix`
+
+## Lint + Formatting
+
+- `pnpm fixall` to autofix linting and formatting issues
+- `pnpm checkall` to check all formatting is correct
 
 ## Deploy
 

@@ -12,7 +12,9 @@
     "lint": "turbo lint",
     "lint:fix": "turbo lint -- --fix",
     "format:check": "turbo format:check",
-    "format:fix": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\""
+    "format:fix": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "fixall": "pnpm lint:fix && pnpm format:fix",
+    "checkall": "pnpm lint && pnpm format:check"
   },
   "keywords": [],
   "author": "",
