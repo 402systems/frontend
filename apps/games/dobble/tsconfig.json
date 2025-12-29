@@ -11,13 +11,9 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@402systems/core-ui/*": [
-        "../../../libs/core/ui/src/*"
-      ]
-    },
+      "@/*": ["./*"],
+      "@402systems/core-ui/*": ["../../../libs/core/ui/src/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -26,7 +22,5 @@
     ".next/types/**/*.ts",
     "app/page.tsx.bak"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

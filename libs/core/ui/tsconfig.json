@@ -6,16 +6,9 @@
     "baseUrl": ".",
     "jsx": "react-jsx",
     "paths": {
-      "@402systems/core-ui/*": [
-        "./src/*"
-      ]
+      "@402systems/core-ui/*": ["./src/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

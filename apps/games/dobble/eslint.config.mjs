@@ -2,4 +2,9 @@
 import { defineConfig } from 'eslint/config';
 import { nextConfig } from '@402systems/lib-core-eslint';
 
-export default defineConfig([...nextConfig]);
+export default defineConfig([...nextConfig,
+{
+  ignores: [
+    'out'
+  ]
+}]);
