@@ -1,0 +1,51 @@
+name: Manual Deploy
+on:
+  workflow_dispatch:
+    inputs:
+      app_path:
+        description: 'Path to app (e.g., marketing/blog)'
+        required: true
+      environment:
+        description: 'Target Environment'
+        type: choice
+        required: true
+        options:
+          - staging
+          - production
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }} 
+      AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: auto
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build all apps
+        run: pnpm --filter "./apps/${{ github.event.inputs.app_path }}" build
+      - name: Sync to R2
+        run: |
+          # Extract names from path (e.g., apps/marketing/blog -> marketing-blog)
+          TEAM_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f1)
+          APP_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f2)
+          DEPLOY_ID="${TEAM_NAME}-${APP_NAME}"
+          R2_ENDPOINT="https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com"
+          # Target: s3://bucket/staging/marketing-blog/
+          DEST="s3://${{ secrets.R2_BUCKET_NAME }}/${{ github.event.inputs.environment }}/${DEPLOY_ID}/"
+          
+          aws s3 sync "apps/${{ github.event.inputs.app_path }}/out" "$DEST" \
+            --endpoint-url "$R2_ENDPOINT" \
+            --region auto
