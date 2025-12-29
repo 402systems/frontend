@@ -9,6 +9,8 @@ const nextConfig = {
 
   // This allows you to deploy each app independently as a Docker container
   output: 'export',
+
+  basePath: '/games-dobble',
 };
 
 export default nextConfig;
