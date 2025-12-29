@@ -9,7 +9,8 @@ const nextConfig = {
 
   // This allows you to deploy each app independently as a Docker container
   output: 'export',
-  basePath: '/core-design',
+
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
 };
 
 export default nextConfig;
