@@ -21,6 +21,13 @@ Prerequisites:
 - Use `--filter` to scope `pnpm` to your package.
 - Lint: `pnpm <cmd> --filter @402systems/app-core-design`
 
+## UI Framework
+
+- All UI components are in the libs/core/ui package. The package must be referenced as `@402systems/core-ui/*`
+  in UI code. If you use the generated templates, the compiler will be aware of this.
+- UI primitives are made using ShadCN. Add new primitives via `pnpm dlx shadcn@latest add <name>`.
+- See <https://ui.shadcn.com/docs/components> for all components
+
 ## Linting
 
 - `pnpm lint` to lint the entire repo. Use `--filter <pkg>` to scope down
@@ -33,4 +40,9 @@ Prerequisites:
 
 ## Deploy
 
-Todo
+- Head to the github actions window
+- Select `Deploy`
+
+- Put in the path of the app, like `games/dobble`
+- Select your environment
+- Deploy
