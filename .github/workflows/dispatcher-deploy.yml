@@ -1,12 +1,12 @@
-name: Build and Lint
+name: Deploy Dispatcher
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
 jobs:
-  build-and-lint:
+  deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }} 
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
@@ -19,8 +19,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm instal --no-frozen-lockfile
-      - name: Lint check
-        run: pnpm lint
-      - name: Build
-        run: pnpm build
+        run: pnpm install --frozen-lockfile
+      - name: Build all apps
+        run: |
+          pnpm run deploy --filter @402systems/lib-router-dispatcher:deploy
+

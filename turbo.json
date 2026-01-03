@@ -9,6 +9,9 @@
       "cache": true,
       "inputs": ["**/*.{ts,tsx,js,jsx,json,md,css}", ".prettierrc.js"]
     },
+    "deploy": {
+      "dependsOn": ["^build"]
+    },
     "lint": {},
     "dev": {
       "cache": false,

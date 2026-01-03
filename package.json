@@ -8,6 +8,7 @@
     "preinstall": "npx only-allow pnpm",
     "gen:package": "plop",
     "build": "turbo build",
+    "deploy": "turbo deploy",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "lint:fix": "turbo lint -- --fix",
