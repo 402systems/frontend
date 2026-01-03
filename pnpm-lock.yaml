@@ -113,21 +113,6 @@ importers:
         specifier: latest
         version: 5.9.3
 
-  libs/core/app-deployer:
-    devDependencies:
-      '@402systems/lib-core-eslint':
-        specifier: workspace:*
-        version: link:../eslint
-      '@402systems/lib-core-tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: latest
-        version: 5.9.3
-      wrangler:
-        specifier: ^4.54.0
-        version: 4.54.0
-
   libs/core/eslint:
     dependencies:
       '@eslint/eslintrc':
@@ -167,6 +152,21 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.7.2
         version: 0.7.2(prettier@3.7.4)
+
+  libs/core/router-dispatcher:
+    devDependencies:
+      '@402systems/lib-core-eslint':
+        specifier: workspace:*
+        version: link:../eslint
+      '@402systems/lib-core-tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: latest
+        version: 5.9.3
+      wrangler:
+        specifier: ^4.54.0
+        version: 4.54.0
 
   libs/core/tsconfig: {}
 
