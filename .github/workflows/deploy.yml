@@ -45,7 +45,7 @@ jobs:
           # Extract names from path (e.g., apps/marketing/blog -> marketing-blog)
           TEAM_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f1)
           APP_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f2)
-          DEPLOY_ID="${TEAM_NAME}-${APP_NAME}"
+          DEPLOY_ID="${TEAM_NAME}/${APP_NAME}"
           R2_ENDPOINT="https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com"
           # Target: s3://bucket/staging/marketing-blog/
           DEST="s3://${{ secrets.R2_BUCKET_NAME }}/${{ github.event.inputs.environment }}/${DEPLOY_ID}/"
