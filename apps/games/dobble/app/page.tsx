@@ -26,11 +26,9 @@ export default function Home() {
 
   const maxCards = n * n + n + 1;
 
-  useEffect(() => {
-    if (totalCardsPlayed > maxCards) {
-      setTotalCardsPlayed(maxCards);
-    }
-  }, [n, maxCards, totalCardsPlayed]);
+  if (totalCardsPlayed > maxCards) {
+    setTotalCardsPlayed(maxCards);
+  }
 
   const startGame = () => {
     try {
@@ -144,7 +142,9 @@ export default function Home() {
           </div>
 
           <div className="flex w-full flex-col space-y-2">
-            <p className="text-sm font-medium">Total Cards: {totalCardsPlayed}</p>
+            <p className="text-sm font-medium">
+              Total Cards: {totalCardsPlayed}
+            </p>
             <Slider
               value={[totalCardsPlayed]}
               min={2}
