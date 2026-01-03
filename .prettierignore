@@ -6,3 +6,5 @@ pnpm-lock.yaml
 _templates
 .turbo
 out
+next-env.d.ts
+libs/core/router-dispatcher/worker-configuration.d.ts
