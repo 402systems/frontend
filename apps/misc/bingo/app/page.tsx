@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { toPng, toBlob } from 'html-to-image';
 import { Button } from '@402systems/core-ui/components/ui/button';
 import { Card } from '@402systems/core-ui/components/ui/card';
@@ -19,7 +19,7 @@ export default function BingoPage() {
     setGrid(newGrid);
   };
 
-  const shuffleBoard = () => {
+  const shuffleBoard = useCallback(() => {
     const shuffledGrid = [...grid];
     shuffledGrid.sort(() => Math.random() - 0.5);
     // Keep FREE SPACE at index 12
@@ -30,7 +30,7 @@ export default function BingoPage() {
       shuffledGrid[newIndex],
     ];
     setGrid(shuffledGrid);
-  };
+  }, [grid]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -45,7 +45,7 @@ export default function BingoPage() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [grid, isPreview]);
+  }, [shuffleBoard, isPreview]);
 
   const handleDownloadImage = async () => {
     if (!boardRef.current) return;
