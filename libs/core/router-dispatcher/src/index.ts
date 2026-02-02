@@ -2,23 +2,21 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const pathSegments = url.pathname.split('/').filter(Boolean);
-    let deployId = pathSegments[0]; // e.g., "marketing-blog"
-    let assetPath = pathSegments.slice(1).join('/');
+    const deployId = pathSegments[0]; // e.g., "marketing-blog"
 
-    if (!deployId) {
-      deployId = '_root';
-      assetPath = pathSegments.join('/');
-    }
-
+    if (!deployId)
+      return new Response('402systems: Please specify an app.', {
+        status: 400,
+      });
     const environment = url.hostname.startsWith('staging')
       ? 'staging'
       : 'production';
 
+    let assetPath = pathSegments.slice(1).join('/');
     if (!assetPath || !assetPath.includes('.')) {
       // Ensure we don't end up with double slashes
       assetPath = assetPath ? `${assetPath}/index.html` : 'index.html';
     }
-
     const r2Key = `${environment}/${deployId}/${assetPath}`;
 
     const object = await env.DEPLOYMENTS_BUCKET.get(r2Key);
