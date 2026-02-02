@@ -12,6 +12,11 @@ on:
         options:
           - staging
           - production
+      deploy_to_root:
+        description: 'Deploy as root application (web.402systems.com/)'
+        type: boolean
+        default: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -36,19 +41,24 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build all apps
         run: |
-          TEAM_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f1)
-          APP_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f2)
-          DEPLOY_ID="${TEAM_NAME}/${APP_NAME}"
-          NEXT_PUBLIC_BASE_PATH="/$DEPLOY_ID" pnpm --filter "./apps/${{ github.event.inputs.app_path }}" build
+          if [ "${{ github.event.inputs.deploy_to_root }}" = "true" ]; then
+            DEPLOY_ID="_root"
+            BASE_PATH="/"
+          else
+            TEAM_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f1)
+            APP_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f2)
+            DEPLOY_ID="${TEAM_NAME}/${APP_NAME}"
+            BASE_PATH="/$DEPLOY_ID"
+          fi
+          echo "DEPLOY_ID=$DEPLOY_ID" >> $GITHUB_ENV
+          NEXT_PUBLIC_BASE_PATH="$BASE_PATH" pnpm --filter "./apps/${{ github.event.inputs.app_path }}" build
       - name: Sync to R2
         run: |
-          TEAM_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f1)
-          APP_NAME=$(echo "${{ github.event.inputs.app_path }}" | cut -d'/' -f2)
-          DEPLOY_ID="${TEAM_NAME}/${APP_NAME}"
           R2_ENDPOINT="https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com"
           # Target: s3://bucket/staging/marketing-blog/
           DEST="s3://${{ secrets.R2_BUCKET_NAME }}/${{ github.event.inputs.environment }}/${DEPLOY_ID}/"
           
           aws s3 sync "apps/${{ github.event.inputs.app_path }}/out" "$DEST" \
+
             --endpoint-url "$R2_ENDPOINT" \
             --region auto
