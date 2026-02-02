@@ -22,5 +22,6 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build all apps
         run: |
-          pnpm run deploy --filter @402systems/lib-router-dispatcher
+          pnpm --filter @402systems/lib-router-dispatcher run deploy
+
 
