@@ -2,12 +2,8 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const pathSegments = url.pathname.split('/').filter(Boolean);
-    const deployId = pathSegments[0]; // e.g., "marketing-blog"
-
-    if (!deployId)
-      return new Response('402systems: Please specify an app.', {
-        status: 400,
-      });
+    // Default to core/home if no path specified (e.g., root URL)
+    const deployId = pathSegments[0] || 'core/home';
     const environment = url.hostname.startsWith('staging')
       ? 'staging'
       : 'production';
