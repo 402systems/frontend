@@ -2,7 +2,9 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const pathSegments = url.pathname.split('/').filter(Boolean);
-    // Default to core/home if no path specified (e.g., root URL)
+    // Default to core/home if no path specified (e.g., root URL). 
+    // This allows web.402systems.com to serve the homepage app directly.
+    // To update the homepage, deploy the 'core/home' app using the Manual Deploy workflow.
     const deployId = pathSegments[0] || 'core/home';
     const environment = url.hostname.startsWith('staging')
       ? 'staging'
