@@ -20,7 +20,20 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build all apps
+      - name: Debug secrets
+        run: |
+          echo "Checking environment variables..."
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "✓ CLOUDFLARE_API_TOKEN is set (length: ${#CLOUDFLARE_API_TOKEN})"
+          else
+            echo "✗ CLOUDFLARE_API_TOKEN is NOT set"
+          fi
+          if [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "✓ CLOUDFLARE_ACCOUNT_ID is set (length: ${#CLOUDFLARE_ACCOUNT_ID})"
+          else
+            echo "✗ CLOUDFLARE_ACCOUNT_ID is NOT set"
+          fi
+      - name: Deploy dispatcher
         run: |
           pnpm run deploy --filter @402systems/lib-router-dispatcher
 
