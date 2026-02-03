@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import {
   Card,
   CardHeader,
@@ -32,7 +31,7 @@ const apps: AppTile[] = [
   {
     name: 'New Year Bingo',
     description: 'A fun party bingo game perfect for celebrations',
-    href: '/misc-bingo',
+    href: '/misc/bingo',
     icon: <PartyPopper className="h-8 w-8" />,
     gradient: 'from-violet-500 to-purple-500',
     category: 'tools',
@@ -56,7 +55,7 @@ function CategorySection({
       </div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {items.map((app, index) => (
-          <Link href={app.href} key={app.name} className="group block">
+          <a href={app.href} key={app.name} className="group block">
             <Card
               className="hover:shadow-primary/5 border-border/50 hover:border-primary/20 h-full overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
               style={{
@@ -93,7 +92,7 @@ function CategorySection({
                 </div>
               </CardContent>
             </Card>
-          </Link>
+          </a>
         ))}
       </div>
     </section>
