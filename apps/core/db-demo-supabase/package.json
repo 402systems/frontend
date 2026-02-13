@@ -1,6 +1,7 @@
 {
   "name": "@402systems/app-core-db-demo-supabase",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",

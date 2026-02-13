@@ -12,7 +12,12 @@ export const createClient = (request: NextRequest) => {
     },
   });
 
-  createServerClient(supabaseUrl!, supabaseKey!, {
+  if (!supabaseUrl || !supabaseKey) {
+    console.warn('Supabase URL or Key is missing. Skipping Supabase client initialization in middleware.');
+    return supabaseResponse;
+  }
+
+  createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();
