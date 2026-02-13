@@ -8,13 +8,19 @@ export const createClient = async () => {
   const cookieStore = await cookies();
 
   if (!supabaseUrl || !supabaseKey) {
-    console.warn('Supabase URL or Key is missing. Returning a dummy client for build/SSR.');
-    return createServerClient('https://placeholder.supabase.co', 'placeholder', {
-      cookies: {
-        getAll: () => [],
-        setAll: () => { },
-      },
-    });
+    console.warn(
+      'Supabase URL or Key is missing. Returning a dummy client for build/SSR.'
+    );
+    return createServerClient(
+      'https://placeholder.supabase.co',
+      'placeholder',
+      {
+        cookies: {
+          getAll: () => [],
+          setAll: () => {},
+        },
+      }
+    );
   }
 
   return createServerClient(supabaseUrl, supabaseKey, {

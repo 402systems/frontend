@@ -13,7 +13,9 @@ export const createClient = (request: NextRequest) => {
   });
 
   if (!supabaseUrl || !supabaseKey) {
-    console.warn('Supabase URL or Key is missing. Skipping Supabase client initialization in middleware.');
+    console.warn(
+      'Supabase URL or Key is missing. Skipping Supabase client initialization in middleware.'
+    );
     return supabaseResponse;
   }
 
