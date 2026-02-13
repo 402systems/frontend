@@ -10,8 +10,7 @@ Prerequisites:
 ## Getting Started
 
 1. `pnpm install`
-2. **Environment Setup**: Many apps require Supabase credentials. Copy the root `.env.template` to the root of your application (e.g., `apps/core/home/.env.local`) and fill in the values.
-3. Start an app in dev mode: `pnpm dev --filter @402systems/app-games-dobble`
+2. Start an app in dev mode: `pnpm dev --filter @402systems/app-games-dobble`
 3. Install a new package: `pnpm install <pkg> --filter @402systems/app-games-dobble`
 4. Install a workspace wide package: `pnpm i -wD <pkg>`. WARN: You should almost never need to do this, unless you are installing a build tool
 5. Run all preflight checks `pnpm checkall`
