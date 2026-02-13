@@ -13,7 +13,7 @@
   "devDependencies": {
     "@402systems/lib-core-eslint": "workspace:*",
     "@402systems/lib-core-tsconfig": "workspace:*",
-    "@types/react": "^19.2.7",
+    "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
